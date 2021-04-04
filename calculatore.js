@@ -58,6 +58,10 @@ function calculateOperands(firstOperand, Operator, secondOperand){
 
   return secondOperand;
 }
+ 
+function resetButton(){
+  displayValue.value = "0"
+}
 
 const keys = document.querySelector('.container');
 keys.addEventListener('click', (event) => {
@@ -76,7 +80,8 @@ keys.addEventListener('click', (event) => {
   }
 
   if (target.classList.contains('reset')) {
-    console.log('reset', target.value);
+    resetButton();
+    // console.log('reset', target.value);
     return;
   } 
 
