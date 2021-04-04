@@ -4,34 +4,7 @@ const calculator = {
   operator: null,
 };
 
-// function updateDisplay() {
-//   // select the element with class of `calculator-screen`
-//   const display = document.querySelector('.calculate');
-//   console.log(display)
-//   // update the value of the element with the contents of `displayValue`
-//   display.innerHTML = calculator.displayValue;
-//   console.log(display.value)
-// }
-
-// updateDisplay();
-
-let displayValue = document.querySelector('.screen');
-
-// function displayMode(){
-//   if (displayValue.value === "0"){
-//     displayValue.value = event.target.innerHTML;
-//   } else {
-//     displayValue.value += event.target.innerHTML;
-//   }
-//   console.log(calculator);
-
-// }
-
-const name = {
-  value : "pouria"
-}
-
-const {value } = name
+var displayValue = document.querySelector('.screen');
 
 function displayMode(digit){
   const {innerText} = digit.target
@@ -41,22 +14,22 @@ function displayMode(digit){
     displayValue.value += innerText;
   }
   console.log(displayValue.value);
-
+  console.log(calculator);
 }
 
 function operatorHandler(nextOperator){
   const { firstOperand, operator } = calculator;
+  const {innerText} = nextOperator.target;
    
-  const inputValue = parseFloat(displayValue);
+  const inputValue = parseFloat(displayValue.value);
 
-  if (calculator.firstOperand==="null" && !isNaN(inputValue)){
+  if (firstOperand === null && !isNaN(inputValue)){
     calculator.firstOperand = inputValue;
   }
 
   calculator.waitingForSecondOperand = true;
-  calculator.operator = nextOperator;
-
-
+  calculator.operator = innerText;
+  console.log(calculator);
 }
 
 const keys = document.querySelector('.container');
@@ -70,7 +43,7 @@ keys.addEventListener('click', (event) => {
   }
 
   if (target.classList.contains('operator')) {
-    // operatorHandler();
+    operatorHandler(event);
     // console.log('operator', target.value);
     return;
   }
