@@ -7,29 +7,56 @@ const calculator = {
 var displayValue = document.querySelector('.screen');
 
 function displayMode(digit){
+  const {waitingForSecondOperand} = calculator;
   const {innerText} = digit.target
-  if (displayValue.value === "0"){
+
+  if (waitingForSecondOperand === true){
     displayValue.value = innerText;
-  } else {
-    displayValue.value += innerText;
+    calculator.waitingForSecondOperand = false;
+  } else{
+    if (displayValue.value === "0"){
+      displayValue.value = innerText;
+    } else {
+      displayValue.value += innerText;
+    }
   }
-  console.log(displayValue.value);
+  
+  // console.log(displayValue.value);
   console.log(calculator);
 }
 
 function operatorHandler(nextOperator){
-  const { firstOperand, operator } = calculator;
+  const {firstOperand, operator} = calculator;
   const {innerText} = nextOperator.target;
    
   const inputValue = parseFloat(displayValue.value);
 
   if (firstOperand === null && !isNaN(inputValue)){
     calculator.firstOperand = inputValue;
+  } else if (operator) {
+    const result = calculateOperands(calculator.firstOperand, calculator.operator, inputValue);
+    displayValue.value = String(result);
+    calculator.firstOperand = result;
   }
 
   calculator.waitingForSecondOperand = true;
   calculator.operator = innerText;
   console.log(calculator);
+}
+
+function calculateOperands(firstOperand, Operator, secondOperand){
+  // const {innerText} = secondOperand.target;
+  if(calculator.operator === "+"){
+    return firstOperand + secondOperand;
+  } else if(calculator.operator === "-"){
+    return firstOperand - secondOperand;
+  } else if(calculator.operator === "*"){
+    return firstOperand * secondOperand;
+  } else if(calculator.operator === "/"){
+    return firstOperand / secondOperand;
+  }
+
+  return secondOperand;
 }
 
 const keys = document.querySelector('.container');
@@ -59,7 +86,6 @@ keys.addEventListener('click', (event) => {
   }
 
   displayMode(event);
-  // displayMode();
   // console.log('digit', target.value);
 });
 
