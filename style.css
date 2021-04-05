@@ -16,6 +16,7 @@ body {
     padding: 0;
     margin: 0;
     margin-bottom: 0.5%;
+    cursor: pointer;
 }
 
 .screen {
@@ -24,7 +25,6 @@ body {
     color: white;
     font-size: 30px;
     width: 360px;
-    /* height: 50px; */
     padding-right: 10px;
 }
 
@@ -57,6 +57,14 @@ body {
     background-color: #ebebeb;
 }
 
+[class*='col_']:active {
+    background-color: #bbbcbe;
+}
+
 [class*='col_1_orange']:hover {
     background-color:#dfb07e;
+}
+
+[class*='col_1_orange']:active {
+    background-color:#dd8d37;
 }
