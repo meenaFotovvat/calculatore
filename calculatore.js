@@ -8,26 +8,23 @@ var displayValue = document.querySelector('.screen');
 
 function displayMode(digit){
   const {waitingForSecondOperand} = calculator;
-  const {innerText} = digit.target
+  const {innerText: digitValue} = digit.target
 
   if (waitingForSecondOperand === true){
-    displayValue.value = innerText;
+    displayValue.value = digitValue;
     calculator.waitingForSecondOperand = false;
   } else{
     if (displayValue.value === "0"){
-      displayValue.value = innerText;
+      displayValue.value = digitValue;
     } else {
-      displayValue.value += innerText;
+      displayValue.value += digitValue;
     }
   }
-  
-  // console.log(displayValue.value);
-  console.log(calculator);
 }
 
 function operatorHandler(nextOperator){
   const {firstOperand, operator} = calculator;
-  const {innerText} = nextOperator.target;
+  const {innerText: latterOperator} = nextOperator.target;
    
   const inputValue = parseFloat(displayValue.value);
 
@@ -40,12 +37,11 @@ function operatorHandler(nextOperator){
   }
 
   calculator.waitingForSecondOperand = true;
-  calculator.operator = innerText;
-  console.log(calculator);
+  calculator.operator = latterOperator;
 }
 
 function calculateOperands(firstOperand, Operator, secondOperand){
-  // const {innerText} = secondOperand.target;
+  console.log(calculator);
   if(calculator.operator === "+"){
     return firstOperand + secondOperand;
   } else if(calculator.operator === "-"){
@@ -75,13 +71,11 @@ keys.addEventListener('click', (event) => {
 
   if (target.classList.contains('operator')) {
     operatorHandler(event);
-    // console.log('operator', target.value);
     return;
   }
 
   if (target.classList.contains('reset')) {
     resetButton();
-    // console.log('reset', target.value);
     return;
   } 
 
@@ -91,6 +85,5 @@ keys.addEventListener('click', (event) => {
   }
 
   displayMode(event);
-  // console.log('digit', target.value);
 });
 
